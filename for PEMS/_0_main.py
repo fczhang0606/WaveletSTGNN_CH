@@ -79,12 +79,12 @@ class trainer :
 
 
     def __init__(self, device, nodes, windows, horizons, 
-                 revin_en, wavelet, h_channels, granularity, 
+                 revin_en, wavelets, level, h_channels, granularity, 
                  graph_dims, diffusion_k, dropout, layer_tree, 
                  lrate, wdecay, scaler) :
 
         self.model = STGNN_NN(device, nodes, windows, horizons, 
-                             revin_en, wavelet, h_channels, granularity, 
+                             revin_en, wavelets, level, h_channels, granularity, 
                              graph_dims, diffusion_k, dropout, layer_tree)
         # self.model.load_state_dict(torch.load('/best_model.pth'))
         ### 模型放于cuda:0
@@ -245,7 +245,8 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelet        = ''        # 
+        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.level          = 3
         args.h_channels     = 96        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
@@ -270,7 +271,8 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelet        = ''        # 
+        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.level          = 3
         args.h_channels     = 16        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
@@ -295,7 +297,8 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelet        = ''        # 
+        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.level          = 3
         args.h_channels     = 64        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
@@ -320,7 +323,8 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelet        = ''        # 
+        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.level          = 3
         args.h_channels     = 128       #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
@@ -334,6 +338,9 @@ if __name__ == '__main__' :
         args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
         args.es_patience    = 100
     print(args)
+    if isinstance(args.wavelets, str) :
+        # 分割字符串并去除空值
+        args.wavelets = [w.strip() for w in args.wavelets.split() if w.strip()]
 
 
     # 载入数据集，./dataset/PEMS08/(train/valid/test).npz，返回dataloader，存储在CPU上
@@ -363,7 +370,7 @@ if __name__ == '__main__' :
 
     # 训练器
     engine = trainer(device, args.nodes, args.windows, args.horizons, 
-                     args.revin_en, args.wavelet, args.h_channels, args.granularity, 
+                     args.revin_en, args.wavelets, args.level, args.h_channels, args.granularity, 
                      args.graph_dims, args.diffusion_k, args.dropout, args.layer_tree, 
                      args.learning_rate, args.weight_decay, scaler)
 

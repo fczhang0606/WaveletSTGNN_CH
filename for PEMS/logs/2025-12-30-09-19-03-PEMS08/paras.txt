@@ -1,0 +1,23 @@
+seed: 6666
+device: cuda:0
+dataset: PEMS08
+dataset_dir: /home/zhfc/dataset/PEMS08
+batch_size: 32
+i_channels: 3
+nodes: 170
+windows: 12
+horizons: 12
+revin_en: 0
+wavelet: 
+h_channels: 96
+granularity: 288
+graph_dims: 10
+diffusion_k: 1
+dropout: 0.5
+layer_tree: 1
+epochs: 10000
+learning_rate: 0.0005
+weight_decay: 0.0001
+cnt_log: 50
+save_dir: ./logs/2025-12-30-09-19-03-
+es_patience: 100

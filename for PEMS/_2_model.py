@@ -392,7 +392,7 @@ class STGNN_NN(nn.Module) :
 
 
     def __init__(self, device, nodes, windows, horizons, 
-                 revin_en, wavelet, channels, granularity, 
+                 revin_en, wavelets, level, channels, granularity, 
                  graph_dims, diffusion_k, dropout, layer_tree) :
 
 
@@ -403,7 +403,8 @@ class STGNN_NN(nn.Module) :
         self.revin_en = revin_en  # PEMS的效果不好，series的效果较好
         # if nodes == 862 :  # traffic
         #     nodes = 400
-        self.wavelet  = wavelet
+        self.wavelets = wavelets
+        self.level    = level
 
 
         ######################## 时间位置编码 ########################
