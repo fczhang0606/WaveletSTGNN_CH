@@ -80,12 +80,12 @@ class trainer :
 
     def __init__(self, device, nodes, windows, horizons, 
                  revin_en, wavelet, h_channels, granularity, 
-                 graph_dims, diffusion_k, dropout, 
+                 graph_dims, diffusion_k, dropout, layer_tree, 
                  lrate, wdecay, scaler) :
 
         self.model = STGNN_NN(device, nodes, windows, horizons, 
                              revin_en, wavelet, h_channels, granularity, 
-                             graph_dims, diffusion_k, dropout)
+                             graph_dims, diffusion_k, dropout, layer_tree)
         # self.model.load_state_dict(torch.load('/best_model.pth'))
         ### 模型放于cuda:0
         self.model.to(device)
@@ -180,6 +180,7 @@ def para_cfg() :
 
     # 
     parser.add_argument('--dropout',            type=float, default=0.5)            # 0.1/0.3/0.5
+    parser.add_argument('--layer_tree',         type=int,   default=1)              # 1/2/3
 
     # 训练参数
     parser.add_argument('--epochs',             type=int, default=1000)             # 1000
@@ -250,6 +251,7 @@ if __name__ == '__main__' :
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
         args.dropout        = 0.5       # 
+        args.layer_tree     = 1         # 
         args.epochs         = 10000
         args.learning_rate  = 0.0005    # 
         args.weight_decay   = 0.0001    # 
@@ -274,6 +276,7 @@ if __name__ == '__main__' :
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
         args.dropout        = 0.5       # 
+        args.layer_tree     = 1         # 
         args.epochs         = 10000
         args.learning_rate  = 0.0005    # 
         args.weight_decay   = 0.0001    # 
@@ -298,6 +301,7 @@ if __name__ == '__main__' :
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
         args.dropout        = 0.5       # 
+        args.layer_tree     = 1         # 
         args.epochs         = 10000
         args.learning_rate  = 0.0005    # 
         args.weight_decay   = 0.0001    # 
@@ -322,102 +326,7 @@ if __name__ == '__main__' :
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
         args.dropout        = 0.5       # 
-        args.epochs         = 10000
-        args.learning_rate  = 0.0005    # 
-        args.weight_decay   = 0.0001    # 
-        args.cnt_log        = 50
-        args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
-        args.es_patience    = 100
-    elif args.dataset == 'bike_drop' :
-        # 
-        # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
-        # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
-        # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 64        #           ### 调整
-        args.i_channels     = 3         # 
-        args.nodes          = 250       # 
-        args.windows        = 12
-        args.horizons       = 12
-        args.revin_en       = 0         #           ### 调整，未知效果
-        args.wavelet        = ''        # 
-        args.h_channels     = 32        #           ### 调整
-        args.granularity    = 48        # 
-        args.graph_dims     = 10        # 
-        args.diffusion_k    = 1         # 
-        args.dropout        = 0.5       # 
-        args.epochs         = 10000
-        args.learning_rate  = 0.0005    # 
-        args.weight_decay   = 0.0001    # 
-        args.cnt_log        = 50
-        args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
-        args.es_patience    = 100
-    elif args.dataset == 'bike_pick' :
-        # 
-        # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
-        # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
-        # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 64        #           ### 调整
-        args.i_channels     = 3         # 
-        args.nodes          = 250       # 
-        args.windows        = 12
-        args.horizons       = 12
-        args.revin_en       = 0         #           ### 调整，未知效果
-        args.wavelet        = ''        # 
-        args.h_channels     = 32        #           ### 调整
-        args.granularity    = 48        # 
-        args.graph_dims     = 10        # 
-        args.diffusion_k    = 1         # 
-        args.dropout        = 0.5       # 
-        args.epochs         = 10000
-        args.learning_rate  = 0.0005    # 
-        args.weight_decay   = 0.0001    # 
-        args.cnt_log        = 50
-        args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
-        args.es_patience    = 100
-    elif args.dataset == 'taxi_drop' :
-        # 
-        # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
-        # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
-        # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 64        #           ### 调整
-        args.i_channels     = 3         # 
-        args.nodes          = 266       # 
-        args.windows        = 12
-        args.horizons       = 12
-        args.revin_en       = 0         #           ### 调整，未知效果
-        args.wavelet        = ''        # 
-        args.h_channels     = 96        #           ### 调整
-        args.granularity    = 48        # 
-        args.graph_dims     = 10        # 
-        args.diffusion_k    = 1         # 
-        args.dropout        = 0.5       # 
-        args.epochs         = 10000
-        args.learning_rate  = 0.0005    # 
-        args.weight_decay   = 0.0001    # 
-        args.cnt_log        = 50
-        args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
-        args.es_patience    = 100
-    elif args.dataset == 'taxi_pick' :
-        # 
-        # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
-        # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
-        # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 64        #           ### 调整
-        args.i_channels     = 3         # 
-        args.nodes          = 266       # 
-        args.windows        = 12
-        args.horizons       = 12
-        args.revin_en       = 0         #           ### 调整，未知效果
-        args.wavelet        = ''        # 
-        args.h_channels     = 96        #           ### 调整
-        args.granularity    = 48        # 
-        args.graph_dims     = 10        # 
-        args.diffusion_k    = 1         # 
-        args.dropout        = 0.5       # 
+        args.layer_tree     = 1         # 
         args.epochs         = 10000
         args.learning_rate  = 0.0005    # 
         args.weight_decay   = 0.0001    # 
@@ -455,7 +364,7 @@ if __name__ == '__main__' :
     # 训练器
     engine = trainer(device, args.nodes, args.windows, args.horizons, 
                      args.revin_en, args.wavelet, args.h_channels, args.granularity, 
-                     args.graph_dims, args.diffusion_k, args.dropout, 
+                     args.graph_dims, args.diffusion_k, args.dropout, args.layer_tree, 
                      args.learning_rate, args.weight_decay, scaler)
 
 

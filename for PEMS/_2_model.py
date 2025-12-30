@@ -393,7 +393,7 @@ class STGNN_NN(nn.Module) :
 
     def __init__(self, device, nodes, windows, horizons, 
                  revin_en, wavelet, channels, granularity, 
-                 graph_dims, diffusion_k, dropout) :
+                 graph_dims, diffusion_k, dropout, layer_tree) :
 
 
         super().__init__()
@@ -429,7 +429,8 @@ class STGNN_NN(nn.Module) :
             windows        = windows,         # W
             channels       = channels*2,      # 2C
             diffusion_k    = diffusion_k,     # K
-            dropout        = dropout          # D
+            dropout        = dropout,         # D
+            layer_tree     = layer_tree       # L
         )
 
 
