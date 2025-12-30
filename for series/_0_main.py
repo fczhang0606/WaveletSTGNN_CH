@@ -13,8 +13,8 @@
 ################################################################
 # conda config --remove-key channels
 
-# conda create -n STGNN_DWISTGNN
-# conda activate STGNN_DWISTGNN
+# conda create -n STGNN_Wavelet
+# conda activate STGNN_Wavelet
 
 # https://pytorch.org/get-started/previous-versions/
 # conda install \
