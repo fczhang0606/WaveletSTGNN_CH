@@ -308,6 +308,7 @@ class IDGCN_Tree(nn.Module) :
         super().__init__()
 
         self.layer_tree = layer_tree
+
         # 作用是仿射？定义的位置。
         self.memory_1   = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]
         self.memory_2   = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]

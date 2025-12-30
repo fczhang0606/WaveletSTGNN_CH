@@ -84,8 +84,8 @@ class trainer :
                  lrate, wdecay, scaler) :
 
         self.model = STGNN_NN(device, nodes, windows, horizons, 
-                             revin_en, wavelets, level, h_channels, granularity, 
-                             graph_dims, diffusion_k, dropout, layer_tree)
+                              revin_en, wavelets, level, h_channels, granularity, 
+                              graph_dims, diffusion_k, dropout, layer_tree)
         # self.model.load_state_dict(torch.load('/best_model.pth'))
         ### 模型放于cuda:0
         self.model.to(device)
