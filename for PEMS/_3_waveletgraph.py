@@ -63,10 +63,10 @@ class WaveletGraph :
             wavelet_entropy.append(entropy)
         features['wavelet_entropy'] = torch.cat(wavelet_entropy, dim=-1).view(B, N, -1)     # [B, N, J]
 
-        # 3-time_freq_map                                           # ?
-        if W >= 32 :                                                # lenth requirement
-            time_freq_maps = self._create_time_freq_maps(x)
-            features['time_freq_maps'] = time_freq_maps
+        # # 3-time_freq_map                                           # ?
+        # if W >= 32 :                                                # lenth requirement
+        #     time_freq_maps = self._create_time_freq_maps(x)
+        #     features['time_freq_maps'] = time_freq_maps
 
         return features
 
