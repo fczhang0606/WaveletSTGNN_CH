@@ -170,7 +170,8 @@ def para_cfg() :
 
     # 数据变形
     parser.add_argument('--revin_en',           type=int, default=0)                # 0/1
-    parser.add_argument('--wavelet',            type=str, default='')               # sym2/db1/db1/coif1
+    parser.add_argument('--wavelets',           type=str, default='')               # sym2/db1/db1/coif1
+    parser.add_argument('--level',              type=int, default='')               # 2/3/4
     parser.add_argument('--h_channels',         type=int, default=96)               # 32/48/64/80/96
     parser.add_argument('--granularity',        type=int, default=288)              # 
 
