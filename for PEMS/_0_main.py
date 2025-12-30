@@ -235,7 +235,7 @@ if __name__ == '__main__' :
     if args.dataset   == 'PEMS08' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems08
         # [10699/3567/3567, 12, 170, 3/1]
         # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 32        # 17856     ### 调整
