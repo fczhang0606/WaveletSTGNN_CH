@@ -209,7 +209,7 @@ class DGCN(nn.Module) :
 
         ###### 消融实验-3: 有空间卷积 vs. 无空间卷积 ######
         ### (有/无)空间卷积
-        # x = self.gcn(x, adj)  # 动态图从外而来
+        x = self.gcn(x, adj)  # 动态图从外而来
 
         x = x*self.emb + skip
 
@@ -412,12 +412,13 @@ class STGNN_NN(nn.Module) :
 
         ######################## RevIN ########################
         if self.revin_en == True :
-            self.revin = RevIN(num_features=nodes, affine=True)
+            self.revin = RevIN(num_features=nodes, affine=True)  # False ???
 
 
         ######################## 语义卷积 ########################
         self.start_conv_l = nn.Conv2d(in_channels=1, out_channels=channels, kernel_size=(1, 1))
         self.start_conv_h = nn.Conv2d(in_channels=1, out_channels=channels, kernel_size=(1, 1))
+
 
         ######################## 动态构图 ########################
         self.graph_constructor = graph_constructor(device, nodes, windows, graph_dims, dropout)
@@ -450,13 +451,14 @@ class STGNN_NN(nn.Module) :
         ######################## 时间位置编码 ########################
         time_emb = self.T_emb(x.transpose(1, 3))  # [B, 3, N, W] -- [B, W, N, 3] -- [B, C, N, W]
 
+
         ######################## 数据规整 ########################
         x_tensor = x[:, 0, :, :].unsqueeze(1)     # -- [B, 1, N, W]
+        ######################## RevIN ########################
+        if self.revin_en == True :
+            x_tensor = self.revin(x_tensor.transpose(1, 3), 'norm').transpose(1, 3)  # -- [B, 1, N, W]
         x_np = x_tensor.detach().cpu().numpy()    # -- [B, 1, N, W]
 
-        # x的特征维的RevIN归一化
-        if self.revin_en == True :
-            x_tensor = self.revin(x_tensor.transpose(1, 3), 'norm').transpose(1, 3)  # -- [B, 1, N, W]   
 
         ###### 消融实验-1: 小波分解 vs. 奇偶分解 ######
         ### (1)-小波分解
@@ -465,6 +467,7 @@ class STGNN_NN(nn.Module) :
         ### (2)-奇偶分解
         # xl = np.repeat(x_np[:, :, :, 0::2], 2, -1)  # 从0开始
         # xh = np.repeat(x_np[:, :, :, 1::2], 2, -1)  # 从1开始
+
 
         ######################## 语义卷积+嵌入 ########################
         xl = torch.Tensor(xl).to(self.device)  # [B, 1, N, W]
@@ -501,6 +504,7 @@ class STGNN_NN(nn.Module) :
         if self.revin_en == True :
             prediction = self.revin(prediction.transpose(1, 3), 
                                     'denorm').transpose(1, 3)  # -- [B, 1, N, H]
+
 
         return prediction, A
 
