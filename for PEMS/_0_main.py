@@ -274,7 +274,7 @@ if __name__ == '__main__' :
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
         args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
         args.level          = 3
-        args.h_channels     = 16        #           ### 调整
+        args.h_channels     = 192        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
@@ -292,7 +292,7 @@ if __name__ == '__main__' :
         # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 64        # 16992     ### 调整
+        args.batch_size     = 96        # 16992     ### 调整
         args.i_channels     = 3
         args.nodes          = 307
         args.windows        = 12
@@ -300,7 +300,7 @@ if __name__ == '__main__' :
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
         args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
         args.level          = 3
-        args.h_channels     = 64        #           ### 调整
+        args.h_channels     = 128        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
@@ -318,7 +318,7 @@ if __name__ == '__main__' :
         # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
-        args.batch_size     = 16        # 28224     ### 调整
+        args.batch_size     = 4        # 28224     ### 调整
         args.i_channels     = 3
         args.nodes          = 883
         args.windows        = 12
@@ -326,7 +326,7 @@ if __name__ == '__main__' :
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
         args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
         args.level          = 3
-        args.h_channels     = 128       #           ### 调整
+        args.h_channels     = 256       #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
         args.graph_dims     = 10        # 
         args.diffusion_k    = 1         # 
