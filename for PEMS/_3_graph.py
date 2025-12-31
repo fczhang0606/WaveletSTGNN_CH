@@ -153,8 +153,8 @@ class graphFusion(nn.Module) :
 
 
         # 融合矩阵，可以改进？？？
-        # adj = adj_sta + basic_similarities  # [B, N, N]
-        adj = basic_similarities  # [B, N, N]
+        adj = adj_sta + basic_similarities  # [B, N, N]
+        # adj = basic_similarities  # [B, N, N]
         adj = F.softmax(adj, dim=1)         # 值域[0, 1]，行和为1
 
 

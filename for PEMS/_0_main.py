@@ -237,7 +237,7 @@ if __name__ == '__main__' :
     if args.dataset   == 'PEMS08' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems08
         # [10699/3567/3567, 12, 170, 3/1]
         # 服务器设置-2：数据集地址
-        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 128       # 17856     ### 调整
@@ -246,7 +246,7 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.wavelets       = 'haar dmey db4 sym4 coif4'
         args.level          = 3
         args.h_channels     = 128       #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
@@ -263,7 +263,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS03' :
         # [15711/5237/5237, 12, 358, 3/1]
         # 服务器设置-2：数据集地址
-        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 64        # 26208     ### 调整
@@ -272,7 +272,7 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.wavelets       = 'haar dmey db4 sym4 coif4'
         args.level          = 3
         args.h_channels     = 192        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
@@ -289,7 +289,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS04' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems04
         # 
         # 服务器设置-2：数据集地址
-        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 96        # 16992     ### 调整
@@ -298,7 +298,7 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.wavelets       = 'haar dmey db4 sym4 coif4'
         args.level          = 3
         args.h_channels     = 128        #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
@@ -315,7 +315,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS07' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems07
         # 
         # 服务器设置-2：数据集地址
-        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 4        # 28224     ### 调整
@@ -324,7 +324,7 @@ if __name__ == '__main__' :
         args.windows        = 12
         args.horizons       = 12
         args.revin_en       = 0         #           ### 调整，PEMS的效果不佳
-        args.wavelets       = 'haar dmey db4 sym4 coif4 bior1.1 rbio1.1'
+        args.wavelets       = 'haar dmey db4 sym4 coif4'
         args.level          = 3
         args.h_channels     = 256       #           ### 调整
         args.granularity    = 288       # 1day=24hrs=24*60mins=24*60/5=288
