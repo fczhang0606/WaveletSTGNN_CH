@@ -412,7 +412,7 @@ class STGNN_NN(nn.Module) :
 
         ######################## RevIN ########################
         if self.revin_en == True :
-            self.revin = RevIN(num_features=nodes, affine=True)  # False ???
+            self.revin = RevIN(num_features=nodes, affine=False)  # False ???
 
 
         ######################## 语义卷积 ########################
