@@ -263,7 +263,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS03' :
         # [15711/5237/5237, 12, 358, 3/1]
         # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 64        # 26208     ### 调整
@@ -289,7 +289,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS04' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems04
         # 
         # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 96        # 16992     ### 调整
@@ -315,7 +315,7 @@ if __name__ == '__main__' :
     elif args.dataset == 'PEMS07' :     # https://paperswithcode.com/sota/traffic-prediction-on-pems07
         # 
         # 服务器设置-2：数据集地址
-        # args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
+        args.dataset_dir    = '/home/zhfc/dataset/'+ args.dataset
         # args.dataset_dir    = '/home/zfc/dataset/' + args.dataset
         # args.dataset_dir    = '/root/dataset/'     + args.dataset
         args.batch_size     = 4        # 28224     ### 调整

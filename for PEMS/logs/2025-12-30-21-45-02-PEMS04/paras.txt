@@ -1,0 +1,24 @@
+seed: 6666
+device: cuda:0
+dataset: PEMS04
+dataset_dir: /home/zhfc/dataset/PEMS04
+batch_size: 96
+i_channels: 3
+nodes: 307
+windows: 12
+horizons: 12
+revin_en: 0
+wavelets: ['haar', 'dmey', 'db4', 'sym4', 'coif4', 'bior1.1', 'rbio1.1']
+level: 3
+h_channels: 128
+granularity: 288
+graph_dims: 10
+diffusion_k: 1
+dropout: 0.5
+layer_tree: 1
+epochs: 10000
+learning_rate: 0.0005
+weight_decay: 0.0001
+cnt_log: 50
+save_dir: ./logs/2025-12-30-21-45-02-
+es_patience: 100
