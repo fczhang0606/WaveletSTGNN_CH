@@ -136,9 +136,10 @@ class WaveletGraph :
                                 # 'pearson', 
                                 # 'spearman', 
                                 # 'wasserstein', 
-                                'energy_correlation', 
-                                'entropy_correlation', 
-                                'time_freq_correlation']
+                                # 'energy_correlation', 
+                                # 'entropy_correlation', 
+                                # 'time_freq_correlation']
+            ]
         similarity_adjs = {}  # dict
 
 

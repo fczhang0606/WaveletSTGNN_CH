@@ -11,7 +11,8 @@ import torch.nn.functional as F
 
 import numpy as np
 
-from _1_dtw import *
+from _1_dtw_s import *
+from _1_dtw_m import *
 from _3_graph import *
 from _3_layer import *
 
@@ -208,7 +209,7 @@ class DGCN(nn.Module) :
 
         ###### 消融实验-3: 有空间卷积 vs. 无空间卷积 ######
         ### (有/无)空间卷积
-        # x = self.gcn(x, adj)  # 动态图从外而来
+        x = self.gcn(x, adj)  # 动态图从外而来
 
         x = x*self.emb + skip
 
@@ -288,13 +289,13 @@ class IDGCN(nn.Module) :
 
         xl_1_t  = self.conv3(xl_1)              # 夹杂了高频成分的，时间卷积
         xl_1_ts = self.dgcn(xl_1_t, Al)         # 夹杂了高频成分的，动态空间卷积
-        xl2     = 0.5*xl_1_ts + 0.5*xh_1        # 低频，吸收高频。注意力吸收？
+        xl_2     = 0.5*xl_1_ts + 0.5*xh_1        # 低频，吸收高频。注意力吸收？
 
         xh_1_t  = self.conv4(xh_1)              # 夹杂了低频成分的，时间卷积
         xh_1_ts = self.dgcn(xh_1_t, Ah)         # 夹杂了低频成分的，动态空间卷积
-        xh2     = 0.5*xh_1_ts + 0.5*xl_1        # 高频，吸收低频。注意力吸收？
+        xh_2     = 0.5*xh_1_ts + 0.5*xl_1        # 高频，吸收低频。注意力吸收？
 
-        return (xl2, xh2)
+        return (xl_2, xh_2)
 
 
 
@@ -302,24 +303,48 @@ class IDGCN(nn.Module) :
 class IDGCN_Tree(nn.Module) :
 
 
-    def __init__(self, nodes, windows, channels, diffusion_k, dropout) :
+    def __init__(self, nodes, windows, channels, diffusion_k, dropout, layer_tree) :
 
         super().__init__()
 
-        # 作用是仿射？定义的位置。
-        self.memory = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]
+        self.layer_tree = layer_tree
 
-        self.IDGCN = IDGCN(
+        # 作用是仿射？定义的位置。
+        self.memory_1   = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]
+        self.memory_2   = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]
+        self.memory_3   = nn.Parameter(torch.randn(channels, nodes, windows))  # [2C, N, W]
+
+        self.IDGCN_1 = IDGCN(
             channels       = channels,        # 2C
             diffusion_k    = diffusion_k,     # K
             dropout        = dropout,         # D
-            emb            = self.memory
+            emb            = self.memory_1
+        )
+        self.IDGCN_2 = IDGCN(
+            channels       = channels,        # 2C
+            diffusion_k    = diffusion_k,     # K
+            dropout        = dropout,         # D
+            emb            = self.memory_2
+        )
+        self.IDGCN_3 = IDGCN(
+            channels       = channels,        # 2C
+            diffusion_k    = diffusion_k,     # K
+            dropout        = dropout,         # D
+            emb            = self.memory_3
         )
 
 
     def forward(self, xl, xh, Al, Ah) :
 
-        xl, xh = self.IDGCN(xl, xh, Al, Ah)
+        if   self.layer_tree == 1 :
+            xl, xh = self.IDGCN_1(xl, xh, Al, Ah)
+        elif self.layer_tree == 2 :
+            xl, xh = self.IDGCN_1(xl, xh, Al, Ah)
+            xl, xh = self.IDGCN_2(xl, xh, Al, Ah)
+        elif self.layer_tree == 3 :
+            xl, xh = self.IDGCN_1(xl, xh, Al, Ah)
+            xl, xh = self.IDGCN_2(xl, xh, Al, Ah)
+            xl, xh = self.IDGCN_3(xl, xh, Al, Ah)
 
         return xl, xh
 
@@ -368,8 +393,8 @@ class STGNN_NN(nn.Module) :
 
 
     def __init__(self, device, nodes, windows, horizons, 
-                 revin_en, wavelet, channels, granularity, 
-                 graph_dims, diffusion_k, dropout) :
+                 revin_en, wavelets, level, channels, granularity, 
+                 graph_dims, diffusion_k, dropout, layer_tree) :
 
 
         super().__init__()
@@ -377,132 +402,87 @@ class STGNN_NN(nn.Module) :
 
         self.device   = device
         self.revin_en = revin_en  # PEMS的效果不好，series的效果较好
-        # if nodes == 862 :  # traffic
-        #     nodes = 400
-        self.wavelet  = wavelet
+        self.wavelets = wavelets
+        self.level    = level
 
 
-        # 利用原始x，制作时间位置编码向量
+        ######################## 时间位置编码 ########################
         self.T_emb = TemporalEmbedding(channels, granularity)
 
 
-        # RevIN归一化
+        ######################## RevIN ########################
         if self.revin_en == True :
-            print('RevIN Network Constructed !!!')
-            self.revin = RevIN(num_features=nodes, affine=False)  # True ???
+            self.revin = RevIN(num_features=nodes, affine=True)  # False ???
 
 
-        # xl与xh的信息卷积升维: (B, 1, N, W) -- (B, C, N, W)
-        # https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html#torch.nn.Conv2d
-        # https://www.jianshu.com/p/45a26d278473
-        # https://www.bilibili.com/video/BV1644y1h7LN/?spm_id_from=333.337.search-card.all.click&vd_source=26c583b46dbb1b1b34ae4743b60cf76f
+        ######################## 语义卷积 ########################
         self.start_conv_l = nn.Conv2d(in_channels=1, out_channels=channels, kernel_size=(1, 1))
         self.start_conv_h = nn.Conv2d(in_channels=1, out_channels=channels, kernel_size=(1, 1))
 
-        # xl与xh的信息前馈升维: (B, 1, N, W) -- (B, C, N, W)
-        # self.start_ffd_l = FeedForward([1, channels, channels])
-        # self.start_ffd_h = FeedForward([1, channels, channels])
 
-
-        # 可学习参数的静态图矩阵
-        # self.A0 = nn.Parameter(torch.randn(nodes, nodes))  # 后面复制升维到[B, N, N]
-
-        # 静态动态的融合构图
-        # 1-使用x，构建单张图
+        ######################## 动态构图 ########################
         self.graph_constructor = graph_constructor(device, nodes, windows, graph_dims, dropout)
-        # 2-使用x小波分解后的xl与xh，构建两张图
-        # self.graph_constructor_xl = graph_constructor(device, nodes, windows, graph_dims, dropout)
-        # self.graph_constructor_xh = graph_constructor(device, nodes, windows, graph_dims, dropout)
-        # 检查：构建两张图时，是否可以精简计算代码？
 
 
-        # concat之后都是channels*2，进行交互
-
-
-        # 交互树。层数。
+        ######################## 动态交互 ########################
         self.tree = IDGCN_Tree(
             nodes          = nodes,           # N
             windows        = windows,         # W
             channels       = channels*2,      # 2C
             diffusion_k    = diffusion_k,     # K
-            dropout        = dropout          # D
+            dropout        = dropout,         # D
+            layer_tree     = layer_tree       # L
         )
 
 
-        # 可学习的成分融合参数
+        ######################## 自动融合 ########################
         self.lamda = nn.Parameter(torch.randn(1))
-
-        # xl与xh，自适应融合，得到x_fse
         self.adp_fusion = Adaptive_Fusion(8, (channels*2)//8)  # h与d，参数可调？
 
 
-        # 使用x_fse，进行预测y_hat
+        ######################## 预测结果 ########################
         self.glu        = GLU(channels*2, dropout)
         self.regression = nn.Conv2d(channels*2, horizons, kernel_size=(1, windows))
 
 
-        # # 预测
-        # self.glu_xl = GLU(channels*2, dropout)
-        # self.glu_xh = GLU(channels*2, dropout)
-        # # 自适应融合
-        # self.adp_fusion = Adaptive_Fusion(8, (channels*2)//8)  # h与d，参数可调？
-        # # 预测
-        # self.regression = nn.Conv2d(channels*2, horizons, kernel_size=(1, windows))
+    def forward(self, x) :  # tensor: [B, 3, N, W]
 
 
-        # 融合-预测-预测 vs. 预测-融合-预测 vs. 预测-预测-融合
-
-
-    # 模型参数计算
-    def param_num(self) :
-        return sum([param.nelement() for param in self.parameters()])  # 分块求和
-
-
-    # 全体数据的格式，调整统一为[B, C, N, W]，适合卷积的形式
-    def forward(self, x) :  # [B, 3, N, W]: 原始数据的tensor类型
-
-
-        # 时间位置编码的向量
+        ######################## 时间位置编码 ########################
         time_emb = self.T_emb(x.transpose(1, 3))  # [B, 3, N, W] -- [B, W, N, 3] -- [B, C, N, W]
 
-        # x的特征维
-        x_tensor = x[:, 0, :, :].unsqueeze(1)     # -- [B, 1, N, W]
 
-        # x的特征维的RevIN归一化
+        ######################## 数据规整 ########################
+        x_tensor = x[:, 0, :, :].unsqueeze(1)     # -- [B, 1, N, W]
+        ######################## RevIN ########################
         if self.revin_en == True :
             x_tensor = self.revin(x_tensor.transpose(1, 3), 'norm').transpose(1, 3)  # -- [B, 1, N, W]
-
-        # x的特征维的分解
         x_np = x_tensor.detach().cpu().numpy()    # -- [B, 1, N, W]
+
 
         ###### 消融实验-1: 小波分解 vs. 奇偶分解 ######
         ### (1)-小波分解
         # xl, xh = disentangle(x_np, self.wavelet, 1)    # 可换小波
+        _, xl, xh   = multi_wavelet_disentangle(x_np, self.wavelets, self.level)    # 多小波分解
         ### (2)-奇偶分解
         # xl = np.repeat(x_np[:, :, :, 0::2], 2, -1)  # 从0开始
         # xh = np.repeat(x_np[:, :, :, 1::2], 2, -1)  # 从1开始
 
-        # 转为torch.sensor
+
+        ######################## 语义卷积+嵌入 ########################
         xl = torch.Tensor(xl).to(self.device)  # [B, 1, N, W]
         xh = torch.Tensor(xh).to(self.device)  # [B, 1, N, W]
-
-        # 卷积升维 + 位置编码。cat更易学习。
         xl = torch.cat([self.start_conv_l(xl)] + [time_emb], dim=1)  # [B, 2C, N, W]
         xh = torch.cat([self.start_conv_h(xh)] + [time_emb], dim=1)  # [B, 2C, N, W]
 
 
-        # 构图
-        # A0 = self.A0.unsqueeze(0).repeat(B, 1, 1)  # 最后反训的A0，在B上是一致的么
+        ######################## 动态构图 ########################
         A = self.graph_constructor(x_tensor)  # [B, 1, N, W] -- [B, N, N]
-        # Al = self.graph_constructor_xl(xl)
-        # Ah = self.graph_constructor_xh(xh)
 
 
-        # x分解出的不同成分，xl与xh，交互
+        ######################## 动态交互 ########################
         xl, xh = self.tree(xl, xh, A, A)
 
-
-        # 成分融合，还原为x型
 
         ###### 消融实验-4: 学习融合 vs. 手动融合 vs. 自动融合 ######
         ### (1)-学习融合
@@ -511,31 +491,20 @@ class STGNN_NN(nn.Module) :
         # lamda  = 0.5  # 超参数可调
         # x_fse  = lamda*xl + (1-lamda)*xh
         ### (3)-自动融合
-        # x_fse  = self.adp_fusion(xl, xh)  # 2C维度进入
+        x_fse  = self.adp_fusion(xl, xh)  # 2C维度进入
 
 
-        # 预测y_hat
+        ######################## 预测结果 ########################
         gcn        = self.glu(x_fse) + x_fse
-        prediction = self.regression(F.relu(gcn)).transpose(1, 3)  # relu的作用？
+        prediction = self.regression(F.relu(gcn)).transpose(1, 3)
         # [B, 2C, N, W] -- [B, H, N, 1] -- [B, 1, N, H]
 
 
-        # # 预测
-        # gcn_xl = self.glu_xl(xl) + xl
-        # gcn_xh = self.glu_xh(xh) + xh
-        # # 融合
-        # gcn    = self.adp_fusion(gcn_xl, gcn_xh)
-        # # 预测
-        # prediction = self.regression(F.relu(gcn)).transpose(1, 3)
-
-
-        # 预测-预测-融合
-        # 
-
-
-        # 计算出的y_hat，RevIN反归一化
+        ######################## iRevIN ########################
         if self.revin_en == True :
-            prediction = self.revin(prediction.transpose(1, 3), 'denorm').transpose(1, 3)  # -- [B, 1, N, H]
+            prediction = self.revin(prediction.transpose(1, 3), 
+                                    'denorm').transpose(1, 3)  # -- [B, 1, N, H]
+
 
         return prediction, A
 
