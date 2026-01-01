@@ -486,12 +486,12 @@ class STGNN_NN(nn.Module) :
 
         ###### 消融实验-4: 学习融合 vs. 手动融合 vs. 自动融合 ######
         ### (1)-学习融合
-        # x_fse  = torch.sigmoid(self.lamda)*xl + (1-torch.sigmoid(self.lamda))*xh
+        x_fse  = torch.sigmoid(self.lamda)*xl + (1-torch.sigmoid(self.lamda))*xh
         ### (2)-手动融合
         # lamda  = 0.5  # 超参数可调
         # x_fse  = lamda*xl + (1-lamda)*xh
         ### (3)-自动融合
-        x_fse  = self.adp_fusion(xl, xh)  # 2C维度进入
+        # x_fse  = self.adp_fusion(xl, xh)  # 2C维度进入
 
 
         ######################## 预测结果 ########################
