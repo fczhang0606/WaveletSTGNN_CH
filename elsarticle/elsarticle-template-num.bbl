@@ -1,0 +1,360 @@
+\begin{thebibliography}{10}
+
+\bibitem{wang2024deepwind}
+Bin Wang, Junrui Shi, Binyu Tan, Minbo Ma, Feng Hong, Yanwei Yu, and Tianrui
+  Li.
+\newblock Deepwind: a heterogeneous spatio-temporal model for wind forecasting.
+\newblock {\em Knowledge-Based Systems}, 286:111385, 2024.
+
+\bibitem{xu2024dgformer}
+Zhewen Xu, Xiaohui Wei, Jieyun Hao, Junze Han, Hongliang Li, Changzheng Liu,
+  Zijian Li, Dongyuan Tian, and Nong Zhang.
+\newblock Dgformer: a physics-guided station level weather forecasting model
+  with dynamic spatial-temporal graph neural network.
+\newblock {\em GeoInformatica}, 28(3):499--533, 2024.
+
+\bibitem{yang2024long}
+Yujie Yang, Junhong Chen, Wenbin Zheng, and Fan Zhang.
+\newblock Long-term wind power forecasting with series decomposition and
+  spatio-temporal graph neural network.
+\newblock {\em International Journal of Green Energy}, 21(15):3470--3484, 2024.
+
+\bibitem{shen2024energy}
+Xiaojun Shen, Chao Ji, Xiaohan Lai, Lei Zhao, and Shouyi Jiang.
+\newblock Energy-stgnn: A dynamic forecasting approach for energy consumption
+  prediction.
+\newblock In {\em 2024 10th IEEE International Conference on Intelligent Data
+  and Security (IDS)}, pages 75--79. IEEE, 2024.
+
+\bibitem{zhuang2023multi}
+Wei Zhuang, Jili Fan, Min Xia, and Kedong Zhu.
+\newblock A multi-scale spatial--temporal graph neural network-based method of
+  multienergy load forecasting in integrated energy system.
+\newblock {\em IEEE Transactions on Smart Grid}, 15(3):2652--2666, 2023.
+
+\bibitem{xing2023stcgcn}
+Mengda Xing, Weilong Ding, Tianpu Zhang, and Han Li.
+\newblock Stcgcn: a spatio-temporal complete graph convolutional network for
+  remaining useful life prediction of power transformer.
+\newblock {\em International journal of web information systems},
+  19(2):102--117, 2023.
+
+\bibitem{kong2023dynamic}
+Xiangjie Kong, Wenfeng Zhou, Guojiang Shen, Wenyi Zhang, Nali Liu, and Yao
+  Yang.
+\newblock Dynamic graph convolutional recurrent imputation network for
+  spatiotemporal traffic missing data.
+\newblock {\em Knowledge-Based Systems}, 261:110188, 2023.
+
+\bibitem{li2024st}
+Shuhao Li, Yue Cui, Libin Li, Weidong Yang, Fan Zhang, and Xiaofang Zhou.
+\newblock St-abc: Spatio-temporal attention-based convolutional network for
+  multi-scale lane-level traffic prediction.
+\newblock In {\em 2024 IEEE 40th International Conference on Data Engineering
+  (ICDE)}, pages 1185--1198. IEEE, 2024.
+
+\bibitem{kong2024spatio}
+Weiyang Kong, Ziyu Guo, and Yubao Liu.
+\newblock Spatio-temporal pivotal graph neural networks for traffic flow
+  forecasting.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~38, pages 8627--8635, 2024.
+
+\bibitem{box1976analysis}
+George Box and GM~Jenkins.
+\newblock Analysis: Forecasting and control.
+\newblock {\em San francisco}, 1976.
+
+\bibitem{drucker1996support}
+Harris Drucker, Christopher~J Burges, Linda Kaufman, Alex Smola, and Vladimir
+  Vapnik.
+\newblock Support vector regression machines.
+\newblock {\em Advances in neural information processing systems}, 9, 1996.
+
+\bibitem{zivot2006vector}
+Eric Zivot and Jiahui Wang.
+\newblock Vector autoregressive models for multivariate time series.
+\newblock In {\em Modeling financial time series with S-PLUS{\textregistered}},
+  pages 369--413. Springer, 2006.
+
+\bibitem{chen2007narx}
+Sheng Chen, XX~Wang, and Chris~J Harris.
+\newblock Narx-based nonlinear system identification using orthogonal least
+  squares basis hunting.
+\newblock {\em IEEE Transactions on Control Systems Technology}, 16(1):78--84,
+  2007.
+
+\bibitem{frigola2015bayesian}
+Roger Frigola-Alcalde.
+\newblock {\em Bayesian time series learning with Gaussian processes}.
+\newblock University of Cambridge (United Kingdom), 2015.
+
+\bibitem{breiman2001random}
+Leo Breiman.
+\newblock Random forests.
+\newblock {\em Machine learning}, 45(1):5--32, 2001.
+
+\bibitem{regression1992introduction}
+Nonparametric Regression.
+\newblock An introduction to kernel and nearest-neighbor.
+\newblock {\em The American Statistician}, 46(3):175--185, 1992.
+
+\bibitem{zhang2003time}
+G~Peter Zhang.
+\newblock Time series forecasting using a hybrid arima and neural network
+  model.
+\newblock {\em Neurocomputing}, 50:159--175, 2003.
+
+\bibitem{graves2012long}
+Alex Graves.
+\newblock Long short-term memory.
+\newblock {\em Supervised sequence labelling with recurrent neural networks},
+  pages 37--45, 2012.
+
+\bibitem{cho2014learning}
+Kyunghyun Cho, Bart Van~Merri{\"e}nboer, Caglar Gulcehre, Dzmitry Bahdanau,
+  Fethi Bougares, Holger Schwenk, and Yoshua Bengio.
+\newblock Learning phrase representations using rnn encoder-decoder for
+  statistical machine translation.
+\newblock {\em arXiv preprint arXiv:1406.1078}, 2014.
+
+\bibitem{lecun2002gradient}
+Yann LeCun, L{\'e}on Bottou, Yoshua Bengio, and Patrick Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86(11):2278--2324, 2002.
+
+\bibitem{lai2018modeling}
+Guokun Lai, Wei-Cheng Chang, Yiming Yang, and Hanxiao Liu.
+\newblock Modeling long-and short-term temporal patterns with deep neural
+  networks.
+\newblock In {\em The 41st international ACM SIGIR conference on research \&
+  development in information retrieval}, pages 95--104, 2018.
+
+\bibitem{shih2019temporal}
+Shun-Yao Shih, Fan-Keng Sun, and Hung-yi Lee.
+\newblock Temporal pattern attention for multivariate time series forecasting.
+\newblock {\em Machine Learning}, 108(8):1421--1441, 2019.
+
+\bibitem{bruna2013spectral}
+Joan Bruna, Wojciech Zaremba, Arthur Szlam, and Yann LeCun.
+\newblock Spectral networks and locally connected networks on graphs.
+\newblock {\em arXiv preprint arXiv:1312.6203}, 2013.
+
+\bibitem{defferrard2016convolutional}
+Micha{\"e}l Defferrard, Xavier Bresson, and Pierre Vandergheynst.
+\newblock Convolutional neural networks on graphs with fast localized spectral
+  filtering.
+\newblock {\em Advances in neural information processing systems}, 29, 2016.
+
+\bibitem{kipf2016semi}
+TN~Kipf.
+\newblock Semi-supervised classification with graph convolutional networks.
+\newblock {\em arXiv preprint arXiv:1609.02907}, 2016.
+
+\bibitem{jin2023spatio}
+Guangyin Jin, Yuxuan Liang, Yuchen Fang, Zezhi Shao, Jincai Huang, Junbo Zhang,
+  and Yu~Zheng.
+\newblock Spatio-temporal graph neural networks for predictive learning in
+  urban computing: A survey.
+\newblock {\em IEEE transactions on knowledge and data engineering},
+  36(10):5388--5408, 2023.
+
+\bibitem{corradini2024systematic}
+Flavio Corradini, Flavio Gerosa, Marco Gori, Carlo Lucheroni, Marco
+  Piangerelli, and Martina Zannotti.
+\newblock A systematic literature review of spatio-temporal graph neural
+  network models for time series forecasting and classification.
+\newblock {\em arXiv preprint arXiv:2410.22377}, 2024.
+
+\bibitem{li2017diffusion}
+Yaguang Li, Rose Yu, Cyrus Shahabi, and Yan Liu.
+\newblock Diffusion convolutional recurrent neural network: Data-driven traffic
+  forecasting.
+\newblock {\em arXiv preprint arXiv:1707.01926}, 2017.
+
+\bibitem{wu2019graph}
+Zonghan Wu, Shirui Pan, Guodong Long, Jing Jiang, and Chengqi Zhang.
+\newblock Graph wavenet for deep spatial-temporal graph modeling.
+\newblock {\em arXiv preprint arXiv:1906.00121}, 2019.
+
+\bibitem{wu2020connecting}
+Zonghan Wu, Shirui Pan, Guodong Long, Jing Jiang, Xiaojun Chang, and Chengqi
+  Zhang.
+\newblock Connecting the dots: Multivariate time series forecasting with graph
+  neural networks.
+\newblock In {\em Proceedings of the 26th ACM SIGKDD international conference
+  on knowledge discovery \& data mining}, pages 753--763, 2020.
+
+\bibitem{ta2022adaptive}
+Xuxiang Ta, Zihan Liu, Xiao Hu, Le~Yu, Leilei Sun, and Bowen Du.
+\newblock Adaptive spatio-temporal graph neural network for traffic
+  forecasting.
+\newblock {\em Knowledge-based systems}, 242:108199, 2022.
+
+\bibitem{guo2021learning}
+Shengnan Guo, Youfang Lin, Huaiyu Wan, Xiucheng Li, and Gao Cong.
+\newblock Learning dynamics and heterogeneity of spatial-temporal graph data
+  for traffic forecasting.
+\newblock {\em IEEE Transactions on Knowledge and Data Engineering},
+  34(11):5415--5428, 2021.
+
+\bibitem{lan2022dstagnn}
+Shiyong Lan, Yitong Ma, Weikang Huang, Wenwu Wang, Hongyu Yang, and Pyang Li.
+\newblock Dstagnn: Dynamic spatial-temporal aware graph neural network for
+  traffic flow forecasting.
+\newblock In {\em International conference on machine learning}, pages
+  11906--11917. PMLR, 2022.
+
+\bibitem{ye2022learning}
+Junchen Ye, Zihan Liu, Bowen Du, Leilei Sun, Weimiao Li, Yanjie Fu, and Hui
+  Xiong.
+\newblock Learning the evolutionary and multi-scale graph structure for
+  multivariate time series forecasting.
+\newblock In {\em Proceedings of the 28th ACM SIGKDD conference on knowledge
+  discovery and data mining}, pages 2296--2306, 2022.
+
+\bibitem{xia2025prost}
+Kaiwen Xia, Li~Lin, Shuai Wang, Qi~Zhang, Shuai Wang, and Tian He.
+\newblock Prost: Prompt future snapshot on dynamic graphs for spatio-temporal
+  prediction.
+\newblock In {\em Proceedings of the 31st ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining V. 1}, pages 1645--1656, 2025.
+
+\bibitem{liu2022scinet}
+Minhao Liu, Ailing Zeng, Muxi Chen, Zhijian Xu, Qiuxia Lai, Lingna Ma, and
+  Qiang Xu.
+\newblock Scinet: Time series modeling and forecasting with sample convolution
+  and interaction.
+\newblock {\em Advances in Neural Information Processing Systems},
+  35:5816--5828, 2022.
+
+\bibitem{wu2021autoformer}
+Haixu Wu, Jiehui Xu, Jianmin Wang, and Mingsheng Long.
+\newblock Autoformer: Decomposition transformers with auto-correlation for
+  long-term series forecasting.
+\newblock {\em Advances in neural information processing systems},
+  34:22419--22430, 2021.
+
+\bibitem{wang2024timemixer}
+Shiyu Wang, Haixu Wu, Xiaoming Shi, Tengge Hu, Huakun Luo, Lintao Ma, James~Y
+  Zhang, and Jun Zhou.
+\newblock Timemixer: Decomposable multiscale mixing for time series
+  forecasting.
+\newblock {\em arXiv preprint arXiv:2405.14616}, 2024.
+
+\bibitem{luo2024lsttn}
+Qinyao Luo, Silu He, Xing Han, Yuhan Wang, and Haifeng Li.
+\newblock Lsttn: A long-short term transformer-based spatiotemporal neural
+  network for traffic flow forecasting.
+\newblock {\em Knowledge-Based Systems}, 293:111637, 2024.
+
+\bibitem{seo2025st}
+Hyunwoo Seo and Chiehyeon Lim.
+\newblock St-mtm: Masked time series modeling with seasonal-trend decomposition
+  for time series forecasting.
+\newblock {\em arXiv preprint arXiv:2507.00013}, 2025.
+
+\bibitem{cao2020spectral}
+Defu Cao, Yujing Wang, Juanyong Duan, Ce~Zhang, Xia Zhu, Congrui Huang, Yunhai
+  Tong, Bixiong Xu, Jing Bai, Jie Tong, et~al.
+\newblock Spectral temporal graph neural network for multivariate time-series
+  forecasting.
+\newblock {\em Advances in neural information processing systems},
+  33:17766--17778, 2020.
+
+\bibitem{zhou2022fedformer}
+Tian Zhou, Ziqing Ma, Qingsong Wen, Xue Wang, Liang Sun, and Rong Jin.
+\newblock Fedformer: Frequency enhanced decomposed transformer for long-term
+  series forecasting.
+\newblock In {\em International conference on machine learning}, pages
+  27268--27286. PMLR, 2022.
+
+\bibitem{yi2023frequency}
+Kun Yi, Qi~Zhang, Wei Fan, Shoujin Wang, Pengyang Wang, Hui He, Ning An, Defu
+  Lian, Longbing Cao, and Zhendong Niu.
+\newblock Frequency-domain mlps are more effective learners in time series
+  forecasting.
+\newblock {\em Advances in Neural Information Processing Systems},
+  36:76656--76679, 2023.
+
+\bibitem{xu2023fits}
+Zhijian Xu, Ailing Zeng, and Qiang Xu.
+\newblock Fits: Modeling time series with $10 k $ parameters.
+\newblock {\em arXiv preprint arXiv:2307.03756}, 2023.
+
+\bibitem{tian2025frera}
+Tian Tian, Chunyan Miao, and Hangwei Qian.
+\newblock Frera: A frequency-refined augmentation for contrastive learning on
+  time series classification.
+\newblock In {\em Proceedings of the 31st ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining V. 2}, pages 2835--2846, 2025.
+
+\bibitem{zhao2019t}
+Ling Zhao, Yujiao Song, Chao Zhang, Yu~Liu, Pu~Wang, Tao Lin, Min Deng, and
+  Haifeng Li.
+\newblock T-gcn: A temporal graph convolutional network for traffic prediction.
+\newblock {\em IEEE transactions on intelligent transportation systems},
+  21(9):3848--3858, 2019.
+
+\bibitem{yu2017spatio}
+Bing Yu, Haoteng Yin, and Zhanxing Zhu.
+\newblock Spatio-temporal graph convolutional networks: A deep learning
+  framework for traffic forecasting.
+\newblock {\em arXiv preprint arXiv:1709.04875}, 2017.
+
+\bibitem{shao2022decoupled}
+Zezhi Shao, Zhao Zhang, Wei Wei, Fei Wang, Yongjun Xu, Xin Cao, and Christian~S
+  Jensen.
+\newblock Decoupled dynamic spatial-temporal graph neural network for traffic
+  forecasting.
+\newblock {\em arXiv preprint arXiv:2206.09112}, 2022.
+
+\bibitem{fang2023spatio}
+Yuchen Fang, Yanjun Qin, Haiyong Luo, Fang Zhao, Bingbing Xu, Liang Zeng, and
+  Chenxing Wang.
+\newblock When spatio-temporal meet wavelets: Disentangled traffic forecasting
+  via efficient spectral graph attention networks.
+\newblock In {\em 2023 IEEE 39th International Conference on Data Engineering
+  (ICDE)}, pages 517--529. IEEE, 2023.
+
+\bibitem{liu2024spatial}
+Aoyu Liu and Yaying Zhang.
+\newblock Spatial--temporal dynamic graph convolutional network with
+  interactive learning for traffic forecasting.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  25(7):7645--7660, 2024.
+
+\bibitem{daubechies1992ten}
+Ingrid Daubechies.
+\newblock {\em Ten lectures on wavelets}.
+\newblock SIAM, 1992.
+
+\bibitem{zhou2021informer}
+Haoyi Zhou, Shanghang Zhang, Jieqi Peng, Shuai Zhang, Jianxin Li, Hui Xiong,
+  and Wancai Zhang.
+\newblock Informer: Beyond efficient transformer for long sequence time-series
+  forecasting.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~35, pages 11106--11115, 2021.
+
+\bibitem{shang2021discrete}
+Chao Shang, Jie Chen, and Jinbo Bi.
+\newblock Discrete graph structure learning for forecasting multiple time
+  series.
+\newblock {\em arXiv preprint arXiv:2101.06861}, 2021.
+
+\bibitem{guo2019attention}
+Shengnan Guo, Youfang Lin, Ning Feng, Chao Song, and Huaiyu Wan.
+\newblock Attention based spatial-temporal graph convolutional networks for
+  traffic flow forecasting.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~33, pages 922--929, 2019.
+
+\bibitem{song2020spatial}
+Chao Song, Youfang Lin, Shengnan Guo, and Huaiyu Wan.
+\newblock Spatial-temporal synchronous graph convolutional networks: A new
+  framework for spatial-temporal network data forecasting.
+\newblock In {\em Proceedings of the AAAI conference on artificial
+  intelligence}, volume~34, pages 914--921, 2020.
+
+\end{thebibliography}
