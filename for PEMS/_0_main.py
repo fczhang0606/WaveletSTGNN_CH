@@ -337,7 +337,7 @@ if __name__ == '__main__' :
         args.weight_decay   = 0.0001    # 
         args.cnt_log        = 50
         args.save_dir       = './logs/' + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + '-'
-        args.es_patience    = 100
+        args.es_patience    = 50
     print(args)
     if isinstance(args.wavelets, str) :
         # 分割字符串并去除空值
