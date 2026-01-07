@@ -14,41 +14,6 @@ from _3_waveletgraph import *
 
 
 
-'''
-###### gumbel分布 ######
-def sample_gumbel(shape, eps=1e-20) :
-
-    U = torch.rand(shape).to("cuda")
-    return -torch.autograd.Variable(torch.log(-torch.log(U+eps) + eps))
-
-
-
-def gumbel_softmax_sample(logits, temperature, eps=1e-10) :
-
-    sample = sample_gumbel(logits.size(), eps=eps)
-    y = logits + sample
-    return F.softmax(y/temperature, dim=-1)
-
-
-
-def gumbel_softmax(logits, temperature, hard=False, eps=1e-10) :
-
-    y_soft = gumbel_softmax_sample(logits, temperature=temperature, eps=eps)
-
-    if hard :
-        shape = logits.size()
-        _, k  = y_soft.data.max(-1)
-        y_hard = torch.zeros(*shape).to("cuda")
-        y_hard = y_hard.zero_().scatter_(-1, k.view(shape[:-1] + (1,)), 1.0)
-        y = torch.autograd.Variable(y_hard - y_soft.data) + y_soft
-    else :
-        y = y_soft
-
-    return y, y_soft
-'''
-
-
-
 class graphFusion(nn.Module) :
 
 
@@ -58,6 +23,9 @@ class graphFusion(nn.Module) :
 
         self.device   = device
         self.nodes    = nodes
+
+        # 
+        self.lamda    = nn.Parameter(torch.randn(1))
 
         # 
         self.norm_adj_sta   = nn.LayerNorm(nodes)       # 静态图
@@ -153,7 +121,8 @@ class graphFusion(nn.Module) :
 
 
         # 融合矩阵，可以改进？？？
-        adj = adj_sta + basic_similarities  # [B, N, N]
+        adj = torch.sigmoid(self.lamda)*adj_sta + \
+            (1-torch.sigmoid(self.lamda))*basic_similarities  # [B, N, N]
         # adj = basic_similarities  # [B, N, N]
         adj = F.softmax(adj, dim=1)         # 值域[0, 1]，行和为1
 
@@ -198,14 +167,14 @@ class graph_constructor(nn.Module) :
 
         self.E           = nn.Embedding(nodes, graph_dims)  # [N, G]
 
-        self.trans_ftr   = nn.Conv2d(1, graph_dims, kernel_size=(1, windows))  # 1~G
-        self.norm_ftr    = nn.LayerNorm(graph_dims)
+        # self.trans_ftr   = nn.Conv2d(1, graph_dims, kernel_size=(1, windows))  # 1~G
+        # self.norm_ftr    = nn.LayerNorm(graph_dims)
 
-        self.gate_Fusion = gatedFusion(device, graph_dims)  # layer.py
+        # self.gate_Fusion = gatedFusion(device, graph_dims)  # layer.py
+
+        self.wavelet_adjs= WaveletGraph(device=device, wave='db4', J=4)  # [B, N, J+1] -- [B, N, N]
 
         self.graph_Fusion= graphFusion(device, nodes, graph_dims, dropout)
-
-        self.wavelet_adjs= WaveletGraph(device=device, wave='db4', J=2)
 
 
     ### 节点特征作为输入，参与构图。过往时间步的信息也有参考融合。
