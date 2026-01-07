@@ -502,8 +502,10 @@ class STGNN_NN(nn.Module) :
 
         ######################## iRevIN ########################
         if self.revin_en == True :
-            prediction = self.revin(prediction.transpose(1, 3), 
-                                    'denorm').transpose(1, 3)  # -- [B, 1, N, H]
+            # [B, 1, N, H] -- [B, H, N, 1] -- [B, H, N]
+            prediction = self.revin(prediction.transpose(1, 3).squeeze(-1), 'denorm')\
+                         .unsqueeze(-1).transpose(1, 3)
+            # [B, H, N]    -- [B, H, N, 1] -- [B, 1, N, H]
 
 
         return prediction, A
